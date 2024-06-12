@@ -18,8 +18,6 @@ botaoTema.addEventListener("click", () => {
 verificarTema(body, botaoTema)
 
 
-
-
 function alterarAssunto() {
     const divIcone = document.querySelector(".assunto_icone")
     const iconeImg = document.querySelector(".assunto_icone img")
@@ -30,6 +28,8 @@ function alterarAssunto() {
     iconeImg.setAttribute("alt", `icone de ${assunto}`)
     assuntoTitulo.innerText = assunto
 }
+
+
 
 async function buscarPerguntas() {
     const urlDados = "../../data.json"
@@ -51,7 +51,6 @@ function montarPergunta() {
     main.innerHTML = `<section class="pergunta">
             <div>
                 <p>Questão ${pergunta} de 10</p>
-                
                 <h2>${alterarSinais(quiz.questions[pergunta-1].question)}</h2>
             </div>
             <div class="barra_progresso">
@@ -69,7 +68,7 @@ function montarPergunta() {
                     </div>
                 </label>
                 <label for="alternativa_b">
-                   <input type="radio" id="alternativa_b" name="alternativa" value="${alterarSinais(quiz.questions[pergunta-1].options[1])}">
+                    <input type="radio" id="alternativa_b" name="alternativa" value="${alterarSinais(quiz.questions[pergunta-1].options[1])}">
                     <div>
                         <span>B</span>
                         ${alterarSinais(quiz.questions[pergunta-1].options[1])}
@@ -120,6 +119,7 @@ function validarResposta() {
         botaoEnviar.addEventListener("click", proximaPergunta)
     }
 
+
     if (resposta === quiz.questions[pergunta-1].answer) {
         document.querySelector(`label[for='${idInputResposta}']`).setAttribute("id", "correta")
         pontos = pontos + 1
@@ -127,13 +127,15 @@ function validarResposta() {
         document.querySelector(`label[for='${idInputResposta}']`).setAttribute("id", "errada")
         document.querySelector(`label[for='${respostaCorretaId}']`).setAttribute("id", "correta")
     }
+
     pergunta = pergunta + 1
 } 
 
 function finalizar() {
     localStorage.setItem("pontos", pontos)
-    window.location.href = "../resultado/resultado.html"
+    window.location.href = "../resultados/resultado.html"
 }
+
 
 function proximaPergunta() {
     montarPergunta()
@@ -144,6 +146,7 @@ function adicionarEventoInputs() {
     const inputsResposta = document.querySelectorAll(".alternativas input")
     inputsResposta.forEach(input => {
         input.addEventListener("click", guardarResposta)
+
         if (input.value === quiz.questions[pergunta-1].answer) {
             respostaCorretaId = input.id
         }
